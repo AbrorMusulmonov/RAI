@@ -1,0 +1,75 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+*.egg-info/
+.coverage
+htmlcov/
+
+# Environment, credentials and local sessions
+.env
+.env.*
+!.env.example
+*.session
+*.session-journal
+*.pem
+*.key
+cookies.txt
+cookies*.json
+credentials*.json
+client_secret*.json
+
+# Operating system and editors
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.example.json
+.idea/
+
+# Dependencies, build output and temporary files
+node_modules/
+dist/
+.dist/
+build/
+.cache/
+*.tmp
+*.temp
+*.tmp.xlsx
+*.log
+~$*
+
+# Local backups / exports, not research inputs
+*.bak
+*.zip
+ChatExport*/
+.publish-local/
+
+# Private research material: local only, including previously filtered copies.
+# The researcher explicitly withdrew permission to publish PDFs and datasets.
+# Only separate, inspected public summaries under docs/ and empty templates
+# under examples/config/ may be tracked; original research remains private.
+/data/
+/config/
+/notebooks/
+/PROMPTS.md
+/docs/methodology.md
+/docs/collection_log.md
+/docs/final50_report.md
+/docs/source_strategy.md
+*.pdf
+*.xlsx
+*.xls
+*.csv
+*.jsonl
+*.parquet
+*.arrow
+*.feather
+*.sqlite
+*.sqlite3
+*.db

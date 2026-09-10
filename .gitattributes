@@ -1,0 +1,19 @@
+# Preserve research snapshots and their exact-byte integrity hashes.
+* -text
+*.py text eol=lf
+*.md text eol=lf
+*.toml text eol=lf
+*.ini text eol=lf
+requirements.txt text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf
+.env.example text eol=lf
+*.csv -text
+*.json -text
+*.jsonl -text
+*.ipynb -text
+*.pdf binary
+*.xlsx binary
+# Keep every research artifact byte-identical, including Markdown audit reports.
+data/** -text
+config/** -text
