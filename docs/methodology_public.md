@@ -42,6 +42,8 @@ New candidates remain PENDING. Canonical private review queues preserve Candidat
 
 Excel is a human interface, not an independent competing source of truth. Merge saved edits using stable Candidate IDs before regenerating workbooks. Accepted-only exports contain only human ACCEPT records. Review workbooks may contain PENDING candidates but remain private, as do all historical exports.
 
+The review exporter optionally accepts externally audited candidate-coverage counts. Its coverage dashboard distinguishes verified active candidates from human ACCEPT counts; meeting a candidate target does not mean that an accepted-example target has been met. Coverage is an export-time evidence snapshot, not a consequence of changing review decisions. Historical precision and illustrative yield are explicitly labeled as not revalidated for an expanded pool. The original dashboard remains available when no audited coverage is supplied.
+
 ## Validation and limitations
 
 Run fixture-based tests without the private corpus and the full historical suite in the authorized private workspace. Check preserved files against local hashes. Publication checks inspect tracked paths and content; the private evidence comparison is an additional check available only where the corpus exists.

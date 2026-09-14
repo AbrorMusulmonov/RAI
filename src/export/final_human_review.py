@@ -96,9 +96,24 @@ def assert_no_unmerged_edits(path,current):
                     raise RuntimeError(f'Unmerged reviewer notes: {cid}. Refusing overwrite.')
     finally:w.close()
 
-def write_main(current,matrix,path):
+def write_main(current,matrix,path,*,verified_active=None):
+    """Optionally display audited candidate coverage, separate from human ACCEPT yield.
+
+    Keep the historical ACCEPT dashboard columns/formulas intact for old callers.
+    Coverage is supplied by an evidence audit, never inferred from review decisions.
+    """
     assert_no_unmerged_edits(path,current)
-    w=Workbook();dash=w.active;dash.title='DASHBOARD';dash.append(DASH_COLUMNS)
+    headers=list(DASH_COLUMNS)
+    if verified_active is not None:
+        for c in CATEGORIES:
+            count=verified_active[c]
+            if not isinstance(count,int) or isinstance(count,bool) or not 0<=count<=len(current[c]):
+                raise ValueError(f'Invalid audited active coverage for {c}')
+        headers[12]='Human ACCEPT Gap to 50'
+        headers[10]='Prior Audit Precision (not revalidated)'
+        headers[11]='Illustrative Yield (prior precision)'
+        headers.extend(['Active Unique Verified Examples','Gap to 50','Target Status'])
+    w=Workbook();dash=w.active;dash.title='DASHBOARD';dash.append(headers)
     ins=w.create_sheet('INSTRUCTIONS');ins.append(['Topic','Instructions'])
     messages=[
       ('Goal','Har kategoriya uchun taxminan 50 ta inson ACCEPT qarori. Hozirgi fayl — nomzodlar, tayyor dataset emas.'),
@@ -118,6 +133,11 @@ def write_main(current,matrix,path):
       ('Safety','Original izohlar haqoratli bo‘lishi mumkin. Matnlar real raw yozuvlardan; AI faqat topish va saralashga yordam bergan.'),
       ('Final dataset','data_collection.xlsx va aziza_accepted.xlsx faqat avval inson ACCEPT qilgan misollarni o‘z ichiga oladi.'),
     ]
+    if verified_active is not None:
+        messages[0]=('Goal','Balanced review coverage: at least 50 real, unique, verified active candidates per category; preferably 60–70. New rows remain PENDING. This is not an ACCEPT quota.')
+        messages[12]=('Dashboard','Human decision counts recalculate in Excel. Gap to 50 and Target Status use audited candidate coverage, not ACCEPT. Precision is from the historical audit, not revalidated for expanded pools; illustrative yield is not a current acceptance forecast or annotation.')
+        messages[13]=('Snapshot estimates','Distinct Sources and candidate coverage are current export-time audit snapshots. Prior Audit Precision and Illustrative Yield use historical precision, not an independent assessment of the expanded pools. All new candidates still require human review.')
+        messages.append(('Coverage dashboard','Active Unique Verified Examples is an evidence-audit snapshot, independent of human status. Gap to 50 and Target Status use this count. Human ACCEPT Gap to 50 is a separate historical research metric. Editing a human decision does not change candidate coverage.'))
     for item in messages:ins.append(item)
     style_header(ins,[25,115]);ins.freeze_panes='A2'
     for row in ins.iter_rows(min_row=2):
@@ -130,7 +150,13 @@ def write_main(current,matrix,path):
           *[f'=COUNTIF({statuses},"{s}")' for s in ('ACCEPT','REJECT','UNSURE','MOVE_TO_OTHER_CATEGORY','PENDING')],
           matrix[c]['Distinct Sources'],matrix[c]['Estimated Review Precision'],f'=E{i}+I{i}*K{i}',f'=MAX(0,50-E{i})',matrix[c]['Readiness Status']])
         dash.cell(i,1).hyperlink=f"#'{c}'!A1";dash.cell(i,1).style='Hyperlink';dash.cell(i,11).number_format='0%';dash.cell(i,12).number_format='0.0'
-    style_header(dash,[15,22,14,14,12,12,12,13,13,18,22,23,16,31]);dash.auto_filter.ref='A1:N17'
+        if verified_active is not None:
+            dash.cell(i,15,verified_active[c])
+            dash.cell(i,16,f'=MAX(0,50-O{i})')
+            dash.cell(i,17,f'=IF(O{i}<50,"INCOMPLETE",IF(O{i}<60,"MINIMUM TARGET MET",IF(O{i}<=70,"TARGET COMPLETE","ABOVE TARGET")))')
+    widths=[15,22,14,14,12,12,12,13,13,18,22,23,22,31]
+    if verified_active is not None:widths.extend([26,16,28])
+    style_header(dash,widths);dash.auto_filter.ref='A1:Q17' if verified_active is not None else 'A1:N17'
     for row in dash.iter_rows(min_row=2):
         for cell in row:cell.alignment=Alignment(wrap_text=True,vertical='top')
         dash.row_dimensions[row[0].row].height=32
