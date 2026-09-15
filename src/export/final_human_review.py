@@ -40,8 +40,8 @@ def ordered(rows):
                 result.append(r);pending.remove(r);seen.add(r['Source URL'])
     return reviewed+result
 
-def style_header(ws,widths):
-    ws.freeze_panes='B2';ws.sheet_view.showGridLines=False;ws.row_dimensions[1].height=34
+def style_header(ws,widths,*,freeze_panes='B2'):
+    ws.freeze_panes=freeze_panes;ws.sheet_view.showGridLines=False;ws.row_dimensions[1].height=34
     for cell in ws[1]:
         cell.font=Font(name='Calibri',bold=True,color='FFFFFF',size=11)
         cell.fill=PatternFill('solid',fgColor='183D52');cell.alignment=Alignment(wrap_text=True,vertical='center')
@@ -63,11 +63,14 @@ def review_sheet(w,c,rows):
         link=ws.cell(index,4);link.hyperlink=values['Source Link'];link.style='Hyperlink'
         ws.row_dimensions[index].height=min(240,max(50,15*(1+len(r['Example'])//70)))
     style_header(ws,[26,80,49,43,17,34,34,16,18,26,20,23,28,45])
-    last=max(1,ws.max_row);ws.auto_filter.ref=f'A1:N{last}'
+    last=max(1,ws.max_row);filter_ref=f'A1:N{last}'
     if rows:
-        t=Table(displayName='Review_'+c.replace('-','_'),ref=ws.auto_filter.ref)
+        # Tables own their filters. An overlapping sheet filter needs Excel repair.
+        t=Table(displayName='Review_'+c.replace('-','_'),ref=filter_ref)
         t.tableStyleInfo=TableStyleInfo(name='TableStyleMedium2',showRowStripes=True,showColumnStripes=False)
         ws.add_table(t)
+    else:
+        ws.auto_filter.ref=filter_ref
     dv=DataValidation(type='list',formula1='"'+','.join(STATUSES)+'"',allow_blank=False)
     dv.errorTitle='Choose a review status';dv.error='Use one of the five dropdown choices.'
     dv.showErrorMessage=True;dv.errorStyle='stop';dv.showInputMessage=True
@@ -139,7 +142,8 @@ def write_main(current,matrix,path,*,verified_active=None):
         messages[13]=('Snapshot estimates','Distinct Sources and candidate coverage are current export-time audit snapshots. Prior Audit Precision and Illustrative Yield use historical precision, not an independent assessment of the expanded pools. All new candidates still require human review.')
         messages.append(('Coverage dashboard','Active Unique Verified Examples is an evidence-audit snapshot, independent of human status. Gap to 50 and Target Status use this count. Human ACCEPT Gap to 50 is a separate historical research metric. Editing a human decision does not change candidate coverage.'))
     for item in messages:ins.append(item)
-    style_header(ins,[25,115]);ins.freeze_panes='A2'
+    # Freeze once: changing B2 to A2 leaves duplicate/stale pane selections.
+    style_header(ins,[25,115],freeze_panes='A2')
     for row in ins.iter_rows(min_row=2):
         for cell in row:cell.alignment=Alignment(wrap_text=True,vertical='top')
         ins.row_dimensions[row[0].row].height=48

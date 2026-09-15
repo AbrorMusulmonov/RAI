@@ -32,7 +32,7 @@ The following independently worded summaries describe the 16 category scopes. Th
 | STA-3 | Disability | Attacking disabled people or using disability-related language as a personal insult. |
 | STA-4 | Age | Dismissing or humiliating people through age-based claims of worthlessness or incapacity. |
 | STA-5 | Education and literacy | Using schooling or literacy to demean people or deny their participation. |
-| REL-1 | Extremism labeling of religious practice | Stigmatizing ordinary Muslim observance by attaching extremist labels to people. |
+| REL-1 | Extremism labeling of religious practice | Stigmatizing ordinary Islamic observance by attaching extremist labels to people. |
 | REL-2 | Insufficient religiosity and apostasy attacks | Condemning people over perceived lack of religious practice, secular identity, conversion or religious covering. |
 
 Neutral discussion is not automatically abuse. Stance, target and context matter; overlapping categories require the private annotation rules and human judgment. A source's topic is never a label for every comment beneath it.

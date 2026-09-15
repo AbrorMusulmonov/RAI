@@ -44,6 +44,8 @@ Excel is a human interface, not an independent competing source of truth. Merge 
 
 The review exporter optionally accepts externally audited candidate-coverage counts. Its coverage dashboard distinguishes verified active candidates from human ACCEPT counts; meeting a candidate target does not mean that an accepted-example target has been met. Coverage is an export-time evidence snapshot, not a consequence of changing review decisions. Historical precision and illustrative yield are explicitly labeled as not revalidated for an expanded pool. The original dashboard remains available when no audited coverage is supplied.
 
+Workbook compatibility tests check consistent frozen-pane selections and table-owned filters without overlapping worksheet filters. Formatting-only repairs must preserve cell values, identifiers, review decisions and provenance. These checks use self-contained fixtures; actual review workbooks remain private.
+
 ## Validation and limitations
 
 Run fixture-based tests without the private corpus and the full historical suite in the authorized private workspace. Check preserved files against local hashes. Publication checks inspect tracked paths and content; the private evidence comparison is an additional check available only where the corpus exists.

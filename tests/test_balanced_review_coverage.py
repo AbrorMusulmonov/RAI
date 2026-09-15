@@ -97,3 +97,37 @@ def test_coverage_export_refuses_unmerged_human_edits(tmp_path,review_inputs):
         write_main(q,matrix,path,verified_active=counts)
     assert path.read_bytes()==previous
     assert q['GEN-1'][0]['Review Status']=='PENDING'
+
+
+def test_instruction_freeze_has_no_duplicate_or_stale_panes(tmp_path,review_inputs):
+    q,matrix,counts=review_inputs
+    path=tmp_path/'review.xlsx'
+    write_main(q,matrix,path,verified_active=counts)
+    w=load_workbook(path)
+    instructions=w['INSTRUCTIONS']
+    assert instructions.freeze_panes=='A2'
+    assert instructions.sheet_view.pane.activePane=='bottomLeft'
+    assert [s.pane for s in instructions.sheet_view.selection]==['bottomLeft']
+    for ws in w:
+        panes=[s.pane for s in ws.sheet_view.selection]
+        assert len(panes)==len(set(panes))
+    w.close()
+
+
+def test_table_filters_do_not_overlap_sheet_filters(tmp_path,review_inputs):
+    q,matrix,_=review_inputs
+    path=tmp_path/'review.xlsx'
+    write_main(q,matrix,path)
+    w=load_workbook(path)
+    for category,rows in q.items():
+        ws=w[category]
+        if rows:
+            assert ws.auto_filter.ref is None
+            assert len(ws.tables)==1
+            table=next(iter(ws.tables.values()))
+            assert table.ref==f'A1:N{len(rows)+1}'
+            assert table.autoFilter.ref==table.ref
+        else:
+            assert not ws.tables
+            assert ws.auto_filter.ref=='A1:N1'
+    w.close()

@@ -36,6 +36,8 @@ Judge a pool by plausible relevance and diversity, not raw row count. Estimate a
 
 Provide category sheets, clear status choices, stable Candidate IDs and reviewer notes in private workbooks. Preserve original text. Keep all real provenance links inside the authorized local review workflow, never in this public repository. Merge human edits into canonical queues before refreshing exports; export only human ACCEPT rows to the accepted-only workbook.
 
+Fix workbook compatibility issues narrowly: configure frozen panes once and let each table own its filter rather than adding an overlapping worksheet filter. Add fixture-based regression tests. Formatting repairs must not rewrite evidence, regenerate identifiers or reset human decisions; publish the generic fix and tests, not the workbook or its contents.
+
 ## 9. Publication and privacy
 
 Publish code, general methodology, short category summaries and empty configuration templates only after inspection. Withhold datasets, PDFs, complete prompts, source registries, collected links, platform identifiers and private reports. Check both filenames and actual staged bytes. Preserve local originals and existing human decisions. A history rewrite does not certify that old server caches or external clones have been erased.
