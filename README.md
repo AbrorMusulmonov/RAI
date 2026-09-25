@@ -52,6 +52,7 @@ The runtime expects privately supplied `config/` and `data/` directories for res
 - [Methodology](docs/methodology_public.md): evidence preservation, retrieval, quality audits and human review.
 - [Source-selection strategy](docs/source_strategy_public.md): selection and verification principles, without a source list.
 - [PROMPTS](docs/PROMPTS.md): newly written summaries of task patterns, not verbatim private chat history.
+- [Local book workflow](docs/book_workflow_public.md): reference-book and literary-corpus recovery, PDF verification and append-only safeguards, without source identities or quotations.
 - [Empty configuration templates](examples/config/README.md): interfaces for privately supplied inputs; never overwrite existing configuration with them.
 
 The original detailed documents and root-level `PROMPTS.md` remain private and unchanged. Public summaries contain no actual collected example or source address. The researcher has withheld sources over dissemination concerns; technical availability is not a redistribution permission or legal clearance.

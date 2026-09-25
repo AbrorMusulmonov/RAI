@@ -21,12 +21,29 @@ def test_private_research_artifacts_are_never_publishable():
         assert private_research_path(path),path
 
 
+@pytest.mark.parametrize('path', [
+    'docs/official_book_collection_audit.md',
+    'docs/official_book_collection_log.md',
+    'docs/official_book_min10_recovery_audit.md',
+    'docs/official_book_second_pass_audit.md',
+    'docs/official_book_third_pass_audit.md',
+    'docs/RAI_Badiiy_Book_collection_audit.md',
+    'DOCS/RAI_BADIIY_BOOK_COLLECTION_AUDIT.MD',
+])
+def test_detailed_book_audits_are_private_and_ignored(path):
+    assert private_research_path(path)
+    if path.startswith('docs/'):
+        result = subprocess.run(['git', 'check-ignore', '--no-index', path],
+                                cwd=ROOT, capture_output=True, text=True)
+        assert result.returncode == 0
+
+
 def test_code_and_general_documentation_remain_publishable():
     for path in ('README.md','LICENSE','.gitignore','.env.example','requirements.txt',
                  'src/processing/category.py','tests/test_review_state.py',
                  'docs/github_publishing.md','scripts/check_private_tracking.py',
                  'docs/PROMPTS.md','docs/methodology_public.md','docs/source_strategy_public.md',
-                 'examples/config/sources.example.json'):
+                 'examples/config/sources.example.json','docs/book_workflow_public.md'):
         assert not private_research_path(path),path
 
 

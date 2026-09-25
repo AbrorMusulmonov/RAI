@@ -9,6 +9,7 @@ The following are private local material, including filtered copies and derived 
 - All of `data/`, `config/` and `notebooks/`.
 - All PDFs, Excel workbooks, CSV/JSONL datasets and supported columnar/database files.
 - `PROMPTS.md` and detailed research documents: `docs/methodology.md`, `docs/collection_log.md`, `docs/final50_report.md` and `docs/source_strategy.md`.
+- Source-specific book audits and logs matching `docs/official_book_*.md` or `docs/RAI_Badiiy_Book_*.md`, which contain private provenance and research decisions.
 - Credentials, sessions, local backups, environment files other than the empty template, and `.publish-local/` preparation artifacts.
 
 The researcher subsequently authorized separate public methodology and source-strategy summaries, empty configuration templates, sanitized prompt summaries and a short README category overview. These are under `docs/*_public.md`, `docs/PROMPTS.md` and `examples/config/`; the original private files remain unchanged. The public prompt document explicitly identifies itself as newly written summaries, not a verbatim historical archive. Short category descriptions are not the full PDF definitions or reference examples.

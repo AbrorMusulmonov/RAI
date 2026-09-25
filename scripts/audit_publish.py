@@ -22,6 +22,7 @@ SKIP={'.git','.venv','venv','node_modules','__pycache__','.pytest_cache','.mypy_
 PRIVATE_HOLDOUTS={'PROMPTS.md','docs/methodology.md','docs/collection_log.md',
                   'docs/final50_report.md','docs/source_strategy.md'}
 PRIVATE_PREFIXES=('data/','config/','notebooks/','.publish-local/')
+PRIVATE_BOOK_DOC_PREFIXES=('docs/official_book_', 'docs/rai_badiiy_book_')
 PRIVATE_SUFFIXES={'.pdf','.xlsx','.xls','.csv','.jsonl','.parquet','.arrow',
                   '.feather','.sqlite','.sqlite3','.db'}
 
@@ -30,7 +31,10 @@ def private_research_path(path):
     """Publication policy only: this never deletes or rewrites a local file."""
     rel=str(path).replace('\\','/').removeprefix('./')
     lowered=rel.lower()
-    return lowered in {p.lower() for p in PRIVATE_HOLDOUTS} or lowered.startswith(PRIVATE_PREFIXES) or Path(rel).suffix.lower() in PRIVATE_SUFFIXES
+    return (lowered in {p.lower() for p in PRIVATE_HOLDOUTS}
+            or lowered.startswith(PRIVATE_PREFIXES)
+            or (lowered.startswith(PRIVATE_BOOK_DOC_PREFIXES) and lowered.endswith('.md'))
+            or Path(rel).suffix.lower() in PRIVATE_SUFFIXES)
 SECRET_PATTERNS={
     'github_token':re.compile(r'\b(?:github_pat_[A-Za-z0-9_]{20,}|gh[pousr]_[A-Za-z0-9]{20,})'),
     'google_api_key':re.compile(r'\bAIza[0-9A-Za-z_-]{30,}'),

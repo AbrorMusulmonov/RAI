@@ -62,6 +62,9 @@ ChatExport*/
 /docs/collection_log.md
 /docs/final50_report.md
 /docs/source_strategy.md
+# Source-specific book audits contain private locators and research evidence.
+/docs/official_book_*.md
+/docs/RAI_Badiiy_Book_*.md
 *.pdf
 *.xlsx
 *.xls

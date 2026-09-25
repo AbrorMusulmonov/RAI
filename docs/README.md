@@ -6,6 +6,7 @@ This Git repository contains general code documentation, not private research ev
 - [Public methodology](methodology_public.md)
 - [Public source-selection strategy](source_strategy_public.md)
 - [PROMPTS: sanitized workflow summaries](PROMPTS.md)
+- [Local book extraction and deep-audit workflow](book_workflow_public.md)
 - [Empty configuration templates](../examples/config/README.md)
 - [Publication and privacy policy](github_publishing.md)
 

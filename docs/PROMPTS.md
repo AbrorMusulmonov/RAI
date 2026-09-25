@@ -42,6 +42,16 @@ Fix workbook compatibility issues narrowly: configure frozen panes once and let 
 
 Publish code, general methodology, short category summaries and empty configuration templates only after inspection. Withhold datasets, PDFs, complete prompts, source registries, collected links, platform identifiers and private reports. Check both filenames and actual staged bytes. Preserve local originals and existing human decisions. A history rewrite does not certify that old server caches or external clones have been erased.
 
+## 10. Local reference-book extraction
+
+Use only the locally supplied books authorized for the current task. Search embedded text and OCR as retrieval aids, then verify retained quotations against the actual PDF pages. Preserve original-script evidence, book/author metadata and exact PDF locators privately. If a separately authorized Latin-script display is needed, retain the original separately and label the transformation; never substitute a paraphrase. Category suggestions remain PENDING, and unmatched material is not forced into a taxonomy category.
+
+## 11. Literary recovery and final deep audit
+
+Inspect the existing workbook, checkpoint, private audit and extracted pages before resuming. Continue the unfinished step without rebuilding completed work. Search weak categories through dialogue, narration, conflicts, figurative language and mockery scenes as well as lexical variants. Dialect use alone is not language-based abuse; generic travel is not automatically labor-migrant abuse. Read context and preserve distinctions between a character's speech, narrator stance and the author's beliefs.
+
+Append only PDF-verified new quotations to the existing workbook. Reject repeated passages, punctuation variants and near duplicates. Preserve existing rows, identifiers and human decisions; new rows remain PENDING. Save bounded checkpoints, compare source hashes, recheck a random sample and test workbook compatibility. Report genuine source limitations instead of manufacturing coverage. Keep quotes, books' identities, page-level decisions, workbooks and detailed logs private; publish only separately written general methods.
+
 ## Applying these summaries
 
 These summaries do not authorize new collection, annotation, a category expansion, source redistribution or a history rewrite by themselves. Obtain the current user's task and appropriate private inputs separately. Treat machine-generated ranking as assistance, not a final research label or legal determination.
